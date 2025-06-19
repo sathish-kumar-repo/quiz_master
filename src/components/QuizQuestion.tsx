@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
-import { QuizQuestion as QuizQuestionType } from "../main/quiz";
+import { QuizQuestion as QuizQuestionType } from "../types/index";
 
 interface QuizQuestionProps {
   question: QuizQuestionType;
@@ -31,24 +31,24 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
 
   const getOptionStyle = (optionIndex: number) => {
     const baseStyle =
-      "w-full text-left p-4 rounded-xl border-2 transition-all duration-300 font-medium";
+      "w-full text-left p-4 rounded-xl border-2 transition-all duration-300 font-medium text-slate-500 dark:text-slate-400";
 
     if (!showResult && selectedOption === null) {
       return `${baseStyle} border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 hover:scale-[1.02] cursor-pointer`;
     }
 
     if (optionIndex === question.correctAnswer) {
-      return `${baseStyle} border-green-500 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200`;
+      return `${baseStyle} border-green-500 bg-green-100 dark:bg-green-900/30 !text-green-800 dark:!text-green-200`;
     }
 
     if (
       optionIndex === selectedOption &&
       optionIndex !== question.correctAnswer
     ) {
-      return `${baseStyle} border-red-500 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200`;
+      return `${baseStyle} border-red-500 bg-red-100 dark:bg-red-900/30 !text-red-800 dark:!text-red-200`;
     }
 
-    return `${baseStyle} border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400`;
+    return `${baseStyle} border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800`;
   };
 
   const getOptionIcon = (optionIndex: number) => {
@@ -84,7 +84,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
             <button
               key={index}
               onClick={() => handleOptionClick(index)}
-              className={getOptionStyle(index)}
+              className={` ${getOptionStyle(index)}`}
               disabled={showResult || selectedOption !== null}
             >
               <div className="flex items-center justify-between">
@@ -92,7 +92,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
                   <span className="flex-shrink-0 w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center text-sm font-semibold text-slate-600 dark:text-slate-300">
                     {String.fromCharCode(65 + index)}
                   </span>
-                  <span className="text-base md:text-lg">{option}</span>
+                  <span className="text-base md:text-l">{option}</span>
                 </div>
                 {getOptionIcon(index)}
               </div>

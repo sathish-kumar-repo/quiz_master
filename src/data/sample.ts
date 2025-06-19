@@ -8,6 +8,7 @@ export const generalScienceTopic: QuizTopic = {
   description: "Basic scientific principles and facts",
   questions: [],
 };
+
 export const physicsTopic: QuizTopic = {
   id: "physics",
   name: "Physics",
