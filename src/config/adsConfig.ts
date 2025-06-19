@@ -1,7 +1,8 @@
 // Google AdSense Configuration
+
 export const ADSENSE_CONFIG = {
   // Replace with your actual Google AdSense publisher ID
-  publisherId: "ca-pub-1234567890123456",
+  publisherId: "ca-pub-3347216506750761",
 
   // Ad unit configurations for different placements
   adUnits: {
