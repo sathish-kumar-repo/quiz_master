@@ -73,11 +73,16 @@ const AdSenseBlock: React.FC<AdSenseBlockProps> = ({
       adElement.setAttribute("data-ad-slot", adConfig.slot);
       adElement.setAttribute("data-ad-format", adConfig.format);
 
-      if (adConfig.responsive) {
+      // if (adConfig.responsive) {
+      //   adElement.setAttribute("data-full-width-responsive", "true");
+      // }
+      if ("responsive" in adConfig && adConfig.responsive) {
         adElement.setAttribute("data-full-width-responsive", "true");
       }
-
-      if (adConfig.layoutKey) {
+      // if (adConfig.layoutKey) {
+      //   adElement.setAttribute("data-ad-layout-key", adConfig.layoutKey);
+      // }
+      if ("layoutKey" in adConfig && adConfig.layoutKey) {
         adElement.setAttribute("data-ad-layout-key", adConfig.layoutKey);
       }
 

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { CheckCircle, XCircle, ArrowRight } from 'lucide-react';
-import { QuizQuestion as QuizQuestionType } from '../data/quizData';
+import React, { useState, useEffect } from "react";
+import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
+import { QuizQuestion as QuizQuestionType } from "../main/quiz";
 
 interface QuizQuestionProps {
   question: QuizQuestionType;
@@ -13,7 +13,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
   question,
   onAnswer,
   showResult,
-  selectedOption
+  selectedOption,
 }) => {
   const [animateIn, setAnimateIn] = useState(false);
 
@@ -24,50 +24,61 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
 
   const handleOptionClick = (optionIndex: number) => {
     if (showResult || selectedOption !== null) return;
-    
+
     const isCorrect = optionIndex === question.correctAnswer;
     onAnswer(optionIndex, isCorrect);
   };
 
   const getOptionStyle = (optionIndex: number) => {
-    const baseStyle = "w-full text-left p-4 rounded-xl border-2 transition-all duration-300 font-medium";
-    
+    const baseStyle =
+      "w-full text-left p-4 rounded-xl border-2 transition-all duration-300 font-medium";
+
     if (!showResult && selectedOption === null) {
       return `${baseStyle} border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 hover:scale-[1.02] cursor-pointer`;
     }
-    
+
     if (optionIndex === question.correctAnswer) {
       return `${baseStyle} border-green-500 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200`;
     }
-    
-    if (optionIndex === selectedOption && optionIndex !== question.correctAnswer) {
+
+    if (
+      optionIndex === selectedOption &&
+      optionIndex !== question.correctAnswer
+    ) {
       return `${baseStyle} border-red-500 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200`;
     }
-    
+
     return `${baseStyle} border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400`;
   };
 
   const getOptionIcon = (optionIndex: number) => {
     if (!showResult) return null;
-    
+
     if (optionIndex === question.correctAnswer) {
       return <CheckCircle className="w-6 h-6 text-green-600" />;
     }
-    
-    if (optionIndex === selectedOption && optionIndex !== question.correctAnswer) {
+
+    if (
+      optionIndex === selectedOption &&
+      optionIndex !== question.correctAnswer
+    ) {
       return <XCircle className="w-6 h-6 text-red-600" />;
     }
-    
+
     return null;
   };
 
   return (
-    <div className={`space-y-6 transition-all duration-500 ${animateIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+    <div
+      className={`space-y-6 transition-all duration-500 ${
+        animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      }`}
+    >
       <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700">
         <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 leading-relaxed">
           {question.question}
         </h2>
-        
+
         <div className="grid gap-3">
           {question.options.map((option, index) => (
             <button
@@ -88,7 +99,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({
             </button>
           ))}
         </div>
-        
+
         {showResult && question.explanation && (
           <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
             <div className="flex items-start space-x-2">

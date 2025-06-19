@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Clock, Settings, Check, X } from 'lucide-react';
-import { useTimer } from '../contexts/TimerContext';
+import React, { useState } from "react";
+import { Clock, Settings, Check, X } from "lucide-react";
+import { useTimer } from "../contexts/TimerContext";
 
 interface TimerSettingsProps {
   isOpen: boolean;
@@ -30,7 +30,9 @@ const TimerSettings: React.FC<TimerSettingsProps> = ({ isOpen, onClose }) => {
           <div className="flex items-center justify-center w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full">
             <Settings className="w-5 h-5 text-blue-600 dark:text-blue-400" />
           </div>
-          <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200">Timer Settings</h2>
+          <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200">
+            Timer Settings
+          </h2>
         </div>
 
         <div className="space-y-6">
@@ -61,12 +63,22 @@ const TimerSettings: React.FC<TimerSettingsProps> = ({ isOpen, onClose }) => {
           </div>
 
           <div className="bg-slate-50 dark:bg-slate-700 rounded-lg p-4">
-            <h3 className="font-medium text-slate-800 dark:text-slate-200 mb-2">Timer Recommendations</h3>
+            <h3 className="font-medium text-slate-800 dark:text-slate-200 mb-2">
+              Timer Recommendations
+            </h3>
             <ul className="text-sm text-slate-600 dark:text-slate-400 space-y-1">
-              <li>• <strong>3-5s:</strong> Quick recall, competitive mode</li>
-              <li>• <strong>5-10s:</strong> Standard difficulty (recommended)</li>
-              <li>• <strong>10-20s:</strong> Learning mode, complex questions</li>
-              <li>• <strong>20-30s:</strong> Relaxed pace, detailed thinking</li>
+              <li>
+                • <strong>3-5s:</strong> Quick recall, competitive mode
+              </li>
+              <li>
+                • <strong>5-10s:</strong> Standard difficulty (recommended)
+              </li>
+              <li>
+                • <strong>10-20s:</strong> Learning mode, complex questions
+              </li>
+              <li>
+                • <strong>20-30s:</strong> Relaxed pace, detailed thinking
+              </li>
             </ul>
           </div>
 

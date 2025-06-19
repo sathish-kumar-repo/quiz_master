@@ -1,37 +1,43 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Search, Filter, ChevronRight, X, Settings } from 'lucide-react';
-import * as LucideIcons from 'lucide-react';
-import { getTopicsByCategory, QuizTopic } from '../data/quizData';
-import TimerSettings from '../components/TimerSettings';
-import { useTimer } from '../contexts/TimerContext';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Search, Filter, ChevronRight, X, Settings } from "lucide-react";
+import * as LucideIcons from "lucide-react";
+import TimerSettings from "../components/TimerSettings";
+import { useTimer } from "../contexts/TimerContext";
+import { getTopicsByCategory } from "../utils/quiz_utils";
+import { QuizTopic } from "../types";
 
 const TopicsPage: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [showTimerSettings, setShowTimerSettings] = useState(false);
   const { timerDuration } = useTimer();
   const topicsByCategory = getTopicsByCategory();
-  const categories = ['All', ...Object.keys(topicsByCategory)];
+  const categories = ["All", ...Object.keys(topicsByCategory)];
 
   const getIcon = (iconName: string) => {
     const IconComponent = (LucideIcons as any)[iconName];
-    return IconComponent ? <IconComponent className="w-6 h-6" /> : <LucideIcons.HelpCircle className="w-6 h-6" />;
+    return IconComponent ? (
+      <IconComponent className="w-6 h-6" />
+    ) : (
+      <LucideIcons.HelpCircle className="w-6 h-6" />
+    );
   };
 
   const filteredTopics = () => {
     let allTopics: QuizTopic[] = [];
-    
-    if (selectedCategory === 'All') {
+
+    if (selectedCategory === "All") {
       allTopics = Object.values(topicsByCategory).flat();
     } else {
       allTopics = topicsByCategory[selectedCategory] || [];
     }
 
     if (searchTerm) {
-      allTopics = allTopics.filter(topic =>
-        topic.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        topic.description.toLowerCase().includes(searchTerm.toLowerCase())
+      allTopics = allTopics.filter(
+        (topic) =>
+          topic.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          topic.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -39,11 +45,11 @@ const TopicsPage: React.FC = () => {
   };
 
   const clearFilters = () => {
-    setSearchTerm('');
-    setSelectedCategory('All');
+    setSearchTerm("");
+    setSelectedCategory("All");
   };
 
-  const hasActiveFilters = searchTerm !== '' || selectedCategory !== 'All';
+  const hasActiveFilters = searchTerm !== "" || selectedCategory !== "All";
   const topics = filteredTopics();
 
   return (
@@ -54,8 +60,9 @@ const TopicsPage: React.FC = () => {
           Choose Your Quiz Topic
         </h1>
         <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-          Explore our comprehensive collection of quiz topics. Each topic contains carefully crafted questions 
-          designed to test and expand your knowledge.
+          Explore our comprehensive collection of quiz topics. Each topic
+          contains carefully crafted questions designed to test and expand your
+          knowledge.
         </p>
       </div>
 
@@ -69,7 +76,9 @@ const TopicsPage: React.FC = () => {
               className="flex items-center space-x-2 px-4 py-3 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-xl hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
             >
               <Settings className="w-4 h-4" />
-              <span className="text-sm font-medium">Timer: {timerDuration}s</span>
+              <span className="text-sm font-medium">
+                Timer: {timerDuration}s
+              </span>
             </button>
           </div>
 
@@ -84,7 +93,7 @@ const TopicsPage: React.FC = () => {
               className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800 dark:text-slate-200"
             />
           </div>
-          
+
           {/* Category Filter */}
           <div className="relative">
             <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
@@ -93,8 +102,10 @@ const TopicsPage: React.FC = () => {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="pl-10 pr-8 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800 dark:text-slate-200 min-w-[200px]"
             >
-              {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
               ))}
             </select>
           </div>
@@ -117,15 +128,15 @@ const TopicsPage: React.FC = () => {
             {searchTerm && (
               <span className="inline-flex items-center space-x-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm">
                 <span>Search: "{searchTerm}"</span>
-                <button onClick={() => setSearchTerm('')}>
+                <button onClick={() => setSearchTerm("")}>
                   <X className="w-3 h-3" />
                 </button>
               </span>
             )}
-            {selectedCategory !== 'All' && (
+            {selectedCategory !== "All" && (
               <span className="inline-flex items-center space-x-1 px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm">
                 <span>Category: {selectedCategory}</span>
-                <button onClick={() => setSelectedCategory('All')}>
+                <button onClick={() => setSelectedCategory("All")}>
                   <X className="w-3 h-3" />
                 </button>
               </span>
@@ -150,14 +161,16 @@ const TopicsPage: React.FC = () => {
                 <h3 className="font-bold text-lg text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {topic.name}
                 </h3>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">{topic.category}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">
+                  {topic.category}
+                </p>
               </div>
             </div>
-            
+
             <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">
               {topic.description}
             </p>
-            
+
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
                 {topic.questions.length} Questions
@@ -188,9 +201,9 @@ const TopicsPage: React.FC = () => {
       )}
 
       {/* Timer Settings Modal */}
-      <TimerSettings 
-        isOpen={showTimerSettings} 
-        onClose={() => setShowTimerSettings(false)} 
+      <TimerSettings
+        isOpen={showTimerSettings}
+        onClose={() => setShowTimerSettings(false)}
       />
     </div>
   );

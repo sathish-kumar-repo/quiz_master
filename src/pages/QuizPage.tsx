@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Home } from "lucide-react";
-import { quizTopics } from "../data/quizData";
+import { quizTopics } from "../main/quiz";
 import QuizQuestion from "../components/QuizQuestion";
 import QuizTimer from "../components/QuizTimer";
 import ScoreBoard from "../components/ScoreBoard";
